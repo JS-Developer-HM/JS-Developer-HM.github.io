@@ -1,16 +1,16 @@
-mobiscroll.setOptions({
-  theme: "material",
-  themeVariant: "dark",
-});
 let format = "yyyy/MM/DD HH:mm";
 let currentTime = moment();
 let dvrTime;
 let diffMinutes;
+let currentDate = null;
+mobiscroll.setOptions({
+  theme: "material",
+  themeVariant: "dark",
+});
 setInterval(() => {
   currentTime = moment();
-
   $("#current-time").text(`Current Time: ${currentTime.format(format)}`);
-}, 1000);
+}, 100);
 $(function () {
   $("#dvr-time")
     .mobiscroll()
@@ -23,7 +23,7 @@ $(function () {
       returnFormat: "moment",
       onChange(e) {
         dvrTime = e.value;
-        $("#dif-time").mobiscroll("setVal", "");
+        // $("#dif-time").mobiscroll("setVal", "");
         $("#correct-time").text("");
         var diff = moment.duration(dvrTime.diff(currentTime));
         diffMinutes = diff.asMinutes();
@@ -41,6 +41,12 @@ $(function () {
           $("#af-bf").text("-");
         }
         $("#hide").fadeIn();
+
+        if (currentDate != null) {
+          $("#correct-time").text(
+            new moment(currentDate).add(diffMinutes, "minutes").format(format)
+          );
+        }
       },
     });
 
@@ -54,8 +60,9 @@ $(function () {
       timeWheels: "HHmm",
       returnFormat: "moment",
       onChange(e) {
+        currentDate = e.value;
         $("#correct-time").text(
-          e.value.add(diffMinutes, "minutes").format(format)
+          new moment(currentDate).add(diffMinutes, "minutes").format(format)
         );
       },
     });
