@@ -4,6 +4,16 @@ let dvrTime;
 let diffMinutes;
 let diffTime = null;
 let currentDate = null;
+
+let datePickerOptions = {
+  controls: ["time", "calendar"],
+  touchUi: true,
+  display: "bottom",
+  timeFormat: "HH:mm",
+  timeWheels: "HHmm",
+  returnFormat: "moment",
+};
+
 mobiscroll.setOptions({
   theme: "material",
   themeVariant: "dark",
@@ -16,12 +26,7 @@ $(function () {
   $("#dvr-time")
     .mobiscroll()
     .datepicker({
-      controls: ["time", "calendar"],
-      touchUi: true,
-      display: "bottom",
-      timeFormat: "HH:mm",
-      timeWheels: "HHmm",
-      returnFormat: "moment",
+      ...datePickerOptions,
       onChange(e) {
         dvrTime = e.value;
         // $("#dif-time").mobiscroll("setVal", "");
@@ -44,16 +49,20 @@ $(function () {
         $("#hide").fadeIn();
 
         if (diffTime != null) {
-          $("#res-dif-time").text(
-            new moment(diffTime).add(diffMinutes, "minutes").format(format)
-          );
+          $("#res-dif-time")
+            .show()
+            .text(
+              new moment(diffTime).add(diffMinutes, "minutes").format(format)
+            );
         }
         if (currentDate != null) {
-          $("#res-current-date").text(
-            new moment(currentDate)
-              .add(diffMinutes * -1, "minutes")
-              .format(format)
-          );
+          $("#res-current-date")
+            .show()
+            .text(
+              new moment(currentDate)
+                .add(diffMinutes * -1, "minutes")
+                .format(format)
+            );
         }
       },
     });
@@ -61,36 +70,30 @@ $(function () {
   $("#dif-time")
     .mobiscroll()
     .datepicker({
-      controls: ["time", "calendar"],
-      touchUi: true,
-      display: "bottom",
-      timeFormat: "HH:mm",
-      timeWheels: "HHmm",
-      returnFormat: "moment",
+      ...datePickerOptions,
       onChange(e) {
         diffTime = e.value;
-        $("#res-dif-time").text(
-          new moment(diffTime).add(diffMinutes, "minutes").format(format)
-        );
+        $("#res-dif-time")
+          .show()
+          .text(
+            new moment(diffTime).add(diffMinutes, "minutes").format(format)
+          );
       },
     });
 
   $("#current-date")
     .mobiscroll()
     .datepicker({
-      controls: ["time", "calendar"],
-      touchUi: true,
-      display: "bottom",
-      timeFormat: "HH:mm",
-      timeWheels: "HHmm",
-      returnFormat: "moment",
+      ...datePickerOptions,
       onChange(e) {
         currentDate = e.value;
-        $("#res-current-date").text(
-          new moment(currentDate)
-            .add(diffMinutes * -1, "minutes")
-            .format(format)
-        );
+        $("#res-current-date")
+          .show()
+          .text(
+            new moment(currentDate)
+              .add(diffMinutes * -1, "minutes")
+              .format(format)
+          );
       },
     });
 });
