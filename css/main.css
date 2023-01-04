@@ -13,7 +13,7 @@
 :root {
   --bg-color: #30343a;
   --color: #ffffff;
-  --dark: #1b1d21;
+  --dark: #1a1c20;
   --border: #363c42;
 }
 
@@ -50,11 +50,39 @@ body {
 .input {
   background-color: var(--dark);
   color: var(--color);
-  border: 2px solid var(--border);
+  border: 0px solid var(--border);
   padding: 8px 20px;
-  border-radius: 50px;
   min-width: 300px;
   text-align: center;
+  border-radius: 15px;
+}
+
+.dvr-time-result {
+  display: inline-block;
+  background-color: #1e2126;
+  border: 1px solid var(--dark);
+  border-radius: 13px;
+  width: 300px;
+  overflow: hidden;
+}
+
+.dvr-time-result input {
+  display: block;
+  margin-top: 0 !important;
+  width: 100%;
+  border-radius: 0;
+}
+
+.dvr-time-result h4 {
+  display: inline-block;
+  margin: 0 !important;
+  color: #ff9800;
+  padding: 9px;
+  font-size: 20px;
+  direction: ltr;
+}
+.dvr-time-result h4 {
+  display: none;
 }
 
 .dvr-time-differnce .time-dif {
