@@ -2,6 +2,7 @@ let format = "yyyy/MM/DD HH:mm";
 let currentTime = moment();
 let dvrTime;
 let diffMinutes;
+let diffTime = null;
 let currentDate = null;
 mobiscroll.setOptions({
   theme: "material",
@@ -42,9 +43,16 @@ $(function () {
         }
         $("#hide").fadeIn();
 
+        if (diffTime != null) {
+          $("#res-dif-time").text(
+            new moment(diffTime).add(diffMinutes, "minutes").format(format)
+          );
+        }
         if (currentDate != null) {
-          $("#correct-time").text(
-            new moment(currentDate).add(diffMinutes, "minutes").format(format)
+          $("#res-current-date").text(
+            new moment(currentDate)
+              .add(diffMinutes * -1, "minutes")
+              .format(format)
           );
         }
       },
@@ -60,9 +68,28 @@ $(function () {
       timeWheels: "HHmm",
       returnFormat: "moment",
       onChange(e) {
+        diffTime = e.value;
+        $("#res-dif-time").text(
+          new moment(diffTime).add(diffMinutes, "minutes").format(format)
+        );
+      },
+    });
+
+  $("#current-date")
+    .mobiscroll()
+    .datepicker({
+      controls: ["time", "calendar"],
+      touchUi: true,
+      display: "bottom",
+      timeFormat: "HH:mm",
+      timeWheels: "HHmm",
+      returnFormat: "moment",
+      onChange(e) {
         currentDate = e.value;
-        $("#correct-time").text(
-          new moment(currentDate).add(diffMinutes, "minutes").format(format)
+        $("#res-current-date").text(
+          new moment(currentDate)
+            .add(diffMinutes * -1, "minutes")
+            .format(format)
         );
       },
     });
