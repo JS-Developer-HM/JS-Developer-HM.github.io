@@ -12,6 +12,7 @@ let datePickerOptions = {
   timeFormat: "HH:mm",
   timeWheels: "HHmm",
   returnFormat: "moment",
+  dateFormat: "YYYY/MM/DD",
 };
 
 mobiscroll.setOptions({
